@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>l0r3n2f</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="index.css">
+    <link rel="icon" href="https://avatars1.githubusercontent.com/u/76167654?v=4" type="image/png">
+</head>
+
+<body>
+    <div id="loading">
+        <div id="spinner"></div>
+    </div>
+    <script>
+        $.getJSON("https://api.github.com/users/l0r3n2f", function (res) {
+                        $("#profile").append(`
+                            <div id="profile_img" style="background: url(${res.avatar_url}) center;"></div>
+                            <div id="username">
+                                <span style="display:block;">${res.name}</span>
+                                @${res.login}
+                            </div>
+                            <div id="userbio" style="display: none;">${res.bio}</div>
+                            <div id="about">
+                                <span style="display:none;"><i class="fas fa-users"></i> &nbsp; null</span>
+                                <span style="display:none;"><i class="fas fa-envelope"></i> &nbsp; null</span>
+                                <span style="display:block;"><i class="fas fa-link"></i> &nbsp; <a href=${res.blog} target="_blank">${(res.blog).split("://")[1]}</a></span>
+                                <span style="display:block;"><i class="fas fa-map-marker-alt"></i> &nbsp;&nbsp; ${res.location}</span>
+                                <span style="display:none;"><i class="fas fa-user-tie"></i> &nbsp;&nbsp; Available for hire</span>
+                            </div>
+                        `)
+                });
+            if(!$("userbio").empty){
+                $("userbio").style("display:block");
+            }
+    </script>
+    <div id="profile"></div>
+    <div id="display">
+        <div id="work">
+            <h1>My Projects</h1>
+            <script>
+                $.getJSON("https://api.github.com/users/l0r3n2f/repos?type=all", function (res) {
+                    for (var i = 0; i < res.length; i++) {
+                        $("#projects").append(`
+                            <a href="${res[i].html_url}" target="_blank">
+                                <section>
+                                <div class="section_title">${res[i].name}</div>
+                                    <div class="about_section">
+                                    <span style="display:block;">${res[i].description}</span>
+                                </div>
+                                <div class="bottom_section">
+                                    <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; ${res[i].language}</span>
+                                    <span><i class="fas fa-star"></i>&nbsp; ${res[i].stargazers_count}</span>
+                                    <span><i class="fas fa-code-branch"></i>&nbsp; ${res[i].forks_count}</span>
+                                </div>
+                            </section>
+                            </a>
+                        `)
+                    }
+                });
+            </script>
+            <div id="projects"></div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        setTimeout(function () {
+            document.getElementById("loading").classList.add("animated");
+            document.getElementById("loading").classList.add("fadeOut");
+            setTimeout(function () {
+                document.getElementById("loading").classList.remove("animated");
+                document.getElementById("loading").classList.remove("fadeOut");
+                document.getElementById("loading").style.display = "none";
+            }, 800);
+        }, 1500);
+    </script>
+
+</body>
+
+</html>
