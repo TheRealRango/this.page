@@ -46,7 +46,7 @@
         <div id="work">
             <h1>My Projects</h1>
             <script>
-                $.getJSON("https://api.github.com/users/l0r3n2f/repos?type=all", function (res) {
+                $.getJSON("https://api.github.com/users/TheRealRango/repos?type=all", function (res) {
                     for (var i = 0; i < res.length; i++) {
                         $("#projects").append(`
                             <a href="${res[i].html_url}" target="_blank">
